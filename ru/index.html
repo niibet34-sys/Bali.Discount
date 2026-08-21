@@ -3,73 +3,157 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#fbfaf7">
+<meta name="description" content="Индивидуальные экскурсии на Бали по цене групповых. Bali Discount.">
 <title>Экскурсии на Бали — Bali Discount</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet">
 <style>
-:root{--orange:#ff9800;--shadow:0 18px 50px rgba(0,0,0,.18)}
+:root{--orange:#ff8a00;--ink:#171715;--muted:#77756f;--paper:#fbfaf7;--card:#fff;--line:#ece8e0;--shadow:0 18px 55px rgba(30,25,15,.10)}
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-.page{position:fixed;inset:0;overflow:hidden;background:#fff}
-.notion-frame{position:absolute;left:0;top:-50px;width:100%;height:calc(100% + 50px);border:0;background:#fff}
-.contact-wrap{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-.contact-menu{width:230px;padding:10px;border-radius:22px;background:rgba(255,255,255,.96);border:1px solid rgba(15,23,42,.08);box-shadow:var(--shadow);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;transform:translateY(12px) scale(.97);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(100%,820px);margin:0 auto;padding:22px 18px 110px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:36px}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:54px;height:54px;border-radius:50%;object-fit:cover;box-shadow:0 8px 22px rgba(0,0,0,.12)}
+.brand-name{font-weight:700;font-size:.92rem;letter-spacing:.02em}
+.back{font-size:.82rem;color:#696762;border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:rgba(255,255,255,.72)}
+.hero{text-align:center;margin:2px auto 42px;max-width:670px}
+.eyebrow{margin:0 0 12px;color:var(--orange);font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+h1{font-family:Prata,Georgia,serif;font-size:clamp(2.25rem,9vw,4.4rem);line-height:1.03;letter-spacing:-.035em;font-weight:400;margin:0}
+.lead{font-size:clamp(.98rem,3.8vw,1.08rem);line-height:1.6;color:var(--muted);max-width:600px;margin:18px auto 0}
+.note{margin:16px auto 0;font-size:.84rem;color:#918d85}
+.section{margin:0 0 34px}
+.section-title{font-family:Prata,Georgia,serif;font-size:1.55rem;font-weight:400;margin:0 0 14px}
+.list{display:grid;grid-template-columns:1fr;gap:9px}
+.tour{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;min-height:64px;padding:15px 16px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:0 3px 16px rgba(30,25,15,.035);transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+.tour:active{transform:scale(.992)}
+.tour:hover{border-color:#e7d8c5;box-shadow:0 9px 25px rgba(30,25,15,.07)}
+.tour span:first-child{font-size:.94rem;font-weight:600;line-height:1.35}
+.arrow{color:var(--orange);font-size:1.25rem}
+.contact-wrap{position:fixed;right:max(17px,env(safe-area-inset-right));bottom:max(17px,env(safe-area-inset-bottom));z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:11px}
+.contact-menu{width:230px;padding:9px;border-radius:22px;background:rgba(255,255,255,.97);border:1px solid rgba(15,23,42,.08);box-shadow:var(--shadow);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;transform:translateY(12px) scale(.97);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
 .contact-wrap.open .contact-menu{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
-.contact-item{width:100%;height:52px;border:0;background:transparent;border-radius:15px;padding:0 10px;display:flex;align-items:center;gap:12px;font-size:15px;font-weight:650;color:#111827;text-align:left;cursor:default}
-.contact-item+.contact-item{margin-top:3px}
-.contact-item:hover{background:#f6f7f8}
-.icon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto;color:#fff;font-weight:800;overflow:hidden}
-.icon svg{width:22px;height:22px;display:block;fill:currentColor}
-.icon-vk{background:#2787f5;font-size:13px;letter-spacing:-.8px}
-.icon-max{background:linear-gradient(145deg,#2a7df5,#7655ff);font-size:18px}
-.icon-tg{background:#229ed9}
-.icon-wa{background:#25d366}
-.fab{width:60px;height:60px;border:0;border-radius:50%;padding:0;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 14px 34px rgba(0,0,0,.25);cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
-.fab:active{transform:scale(.96)}
-.fab svg{width:31px;height:31px;fill:currentColor}
-.fab .close{display:none;font-size:30px;font-weight:300;line-height:1}
-.contact-wrap.open .fab .wa{display:none}
-.contact-wrap.open .fab .close{display:block}
-@media(max-width:520px){.contact-menu{width:min(230px,calc(100vw - 36px))}.contact-wrap{right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom))}.fab{width:58px;height:58px}.notion-frame{top:-46px;height:calc(100% + 46px)}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.contact-item{width:100%;height:52px;border:0;background:transparent;border-radius:15px;padding:0 10px;display:flex;align-items:center;gap:12px;font-family:inherit;font-size:15px;font-weight:650;color:#111827;text-align:left;cursor:pointer}
+.contact-item:hover{background:#f6f7f8}.contact-item+.contact-item{margin-top:3px}
+.icon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;flex:0 0 auto;color:#fff;font-weight:800;overflow:hidden}.icon svg{width:22px;height:22px;display:block;fill:currentColor}
+.icon-vk{background:#2787f5;font-size:13px}.icon-max{background:linear-gradient(145deg,#2a7df5,#7655ff);font-size:18px}.icon-tg{background:#229ed9}.icon-wa{background:#25d366}
+.fab{width:60px;height:60px;border:0;border-radius:50%;padding:0;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 14px 34px rgba(0,0,0,.24);cursor:pointer;transition:transform .18s ease}.fab:active{transform:scale(.96)}.fab svg{width:31px;height:31px;fill:currentColor}.fab .close{display:none;font-size:30px;font-weight:300;line-height:1}.contact-wrap.open .fab .wa{display:none}.contact-wrap.open .fab .close{display:block}
+@media(min-width:680px){.wrap{padding-top:30px}.list{grid-template-columns:1fr 1fr}.hero{margin-top:14px}.topbar{margin-bottom:48px}}
+@media(max-width:520px){.wrap{padding-left:14px;padding-right:14px}.topbar{margin-bottom:30px}.logo{width:48px;height:48px}.brand-name{font-size:.86rem}.hero{margin-bottom:34px}.section{margin-bottom:30px}.tour{min-height:60px;padding:14px}.contact-menu{width:min(230px,calc(100vw - 34px))}.fab{width:58px;height:58px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<div class="page">
-  <iframe class="notion-frame" src="https://balidiscount.notion.site/9d9cc7b88191428a86afbaff8b85931d?pvs=74&embed=1" title="Экскурсии Bali Discount" allow="clipboard-write; fullscreen" loading="eager"></iframe>
-</div>
+<main class="wrap">
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="Bali Discount — на главную">
+      <img class="logo" src="../assets/bali-discount-logo.webp" alt="Bali Discount">
+      <span class="brand-name">Bali Discount</span>
+    </a>
+    <a class="back" href="../">← На главную</a>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">Bali Discount</p>
+    <h1>Индивидуальные экскурсии по цене групповых</h1>
+    <p class="lead">Только вы, ваш гид и ваш маршрут. Без незнакомых туристов и без скрытых доплат.</p>
+    <p class="note">Выберите экскурсию из списка ниже.</p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Электронная виза в Индонезию</h2>
+    <div class="list">
+      <a class="tour" href="https://www.notion.so/1e43152813a380278179dff35f545c4a" target="_blank" rel="noopener"><span>Электронная виза по прибытии (eVOA) + туристический сбор</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/2613152813a3800d8ae9db5fe9ee9652" target="_blank" rel="noopener"><span>Инструкция по заполнению карты прибытия All Indonesia</span><span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Обзорные экскурсии</h2>
+    <div class="list">
+      <a class="tour" href="https://www.notion.so/47fe93d88941411b9e0865e09a579e09" target="_blank" rel="noopener"><span>Лучшее на Бали #1</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/bb5ebaf3539d488da212a69aff109037" target="_blank" rel="noopener"><span>Лучшее на Бали #2</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/89a411acb4a54952961c26424bee56a5" target="_blank" rel="noopener"><span>Сакральные места силы на Бали</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/12efc210dd604a019697642f621d8beb" target="_blank" rel="noopener"><span>Инстаграм-тур «Встреча рассвета в храме Лемпуянг»</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/6c5a3b570ab2496c8e9f352437a08cc2" target="_blank" rel="noopener"><span>Королевство Карангасем, восток Бали</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/0d5e5c16d402492ba6788270425adc2d" target="_blank" rel="noopener"><span>Мистический источник и водопады Бали</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/20d3b5f6c7d945049b3c94dbe55f3d28" target="_blank" rel="noopener"><span>Инстаграм-тур в Бедугул</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/942b2d0eeee345aeb87e3dba406a0940" target="_blank" rel="noopener"><span>Секумпул и сокровища северного Бали</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/bafd2cff967a4008bf014a83a2c751b7" target="_blank" rel="noopener"><span>Юг Бали</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/0792f9723dd44d1c9eaa9a91d0827758" target="_blank" rel="noopener"><span>Церемония Мелукат</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/1f53152813a380c29708d6b328d1aed2" target="_blank" rel="noopener"><span>Утро с дельфинами — живая магия океана</span><span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Вулканы</h2>
+    <div class="list">
+      <a class="tour" href="https://www.notion.so/00a5a91c6bf241889111f7e57ba36d55" target="_blank" rel="noopener"><span>Восхождение на вулкан Батур</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/e69c9bb4d417446392e203f8ce23171e" target="_blank" rel="noopener"><span>Джип-тур на вулкан Батур</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/7f6af4e88c864f1992dcbfdca712d042" target="_blank" rel="noopener"><span>Восхождение на Иджен — самый яркий вулкан Индонезии</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/1183152813a380feb36acea333a3a017" target="_blank" rel="noopener"><span>Восточная Ява — страна вулканов и водопадов</span><span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Туры на острова</h2>
+    <div class="list">
+      <a class="tour" href="https://www.notion.so/819c85ae176642afbf3b60916430f66b" target="_blank" rel="noopener"><span>Тур на Гили 3 дня / 2 ночи</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/81844993e33b46c8bf5b2e75b9683687" target="_blank" rel="noopener"><span>Тур на Гили 2 дня / 1 ночь</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/813ea99681ee4130ac9df49f808463b2" target="_blank" rel="noopener"><span>Нуса-Пенида — маршрут #1</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/9a69a55117904d0696ab11dfcb030b0d" target="_blank" rel="noopener"><span>Нуса-Пенида — маршрут #2</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/d5b00369d33d43c4bcd1e15d00ba0290" target="_blank" rel="noopener"><span>Нуса-Пенида — маршрут #3</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/11a3152813a380fba048e4462b447de4" target="_blank" rel="noopener"><span>Двухдневный тур на Нуса-Пениду</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/0fd65c385fc64d0eb4e85a5189d9ba0c" target="_blank" rel="noopener"><span>Острова чудес: вараны, акулы и розовые пляжи — 4 дня / 3 ночи</span><span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Водные развлечения</h2>
+    <div class="list">
+      <a class="tour" href="https://www.notion.so/7523ce9c62f740cf983a735d9875bf29" target="_blank" rel="noopener"><span>Sea Walker — прогулка по морскому дну</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/1abe40901883493aba19a9769c68f243" target="_blank" rel="noopener"><span>Водные активности и экстремальные забавы</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/f4a21d5da97f4bae91c344507503dd5e" target="_blank" rel="noopener"><span>Дайвинг</span><span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Активный отдых</h2>
+    <div class="list">
+      <a class="tour" href="https://www.notion.so/91c8607f1ec44073b94114d70232f9a2" target="_blank" rel="noopener"><span>Рафтинг на Бали</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/1e73152813a380d9ba5dcd4db37b584f" target="_blank" rel="noopener"><span>Конная прогулка по пляжу на Бали</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/015fedd04ae94f7893c7440843a9c742" target="_blank" rel="noopener"><span>Вертолётная прогулка</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/a1de208042a94345a7b3cfb63941dfb6" target="_blank" rel="noopener"><span>Поездка на квадроциклах</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/ac5b32e3645242f8ae6b184bc977c05c" target="_blank" rel="noopener"><span>Гонка на квадроциклах по пляжу</span><span class="arrow">→</span></a>
+      <a class="tour" href="https://www.notion.so/1e1a5863e31a40e9b13cc462810ff1db" target="_blank" rel="noopener"><span>Полёт на параплане</span><span class="arrow">→</span></a>
+    </div>
+  </section>
+</main>
 
 <div class="contact-wrap" id="contactWrap">
   <div class="contact-menu" id="contactMenu" aria-hidden="true">
-    <button class="contact-item" type="button" data-messenger="vk">
-      <span class="icon icon-vk">VK</span><span>ВКонтакте</span>
-    </button>
-    <button class="contact-item" type="button" data-messenger="max">
-      <span class="icon icon-max">M</span><span>MAX</span>
-    </button>
-    <button class="contact-item" type="button" data-messenger="telegram">
-      <span class="icon icon-tg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.7 3.4 18.5 19c-.2 1.1-.9 1.4-1.8.9l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.3L6 12.7 1.2 11.2c-1-.3-1-1 .2-1.4L20 2.6c.9-.3 1.9.2 1.7.8Z"/></svg></span><span>Telegram</span>
-    </button>
-    <button class="contact-item" type="button" data-messenger="whatsapp">
-      <span class="icon icon-wa"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 3C9.43 3 4.05 8.35 4.05 14.93c0 2.11.56 4.17 1.62 5.97L3.95 27l6.27-1.64a12 12 0 0 0 5.82 1.48h.01c6.61 0 11.99-5.35 11.99-11.93C28.04 8.35 22.66 3 16.04 3Zm0 21.83h-.01a9.98 9.98 0 0 1-5.09-1.39l-.37-.22-3.72.97.99-3.61-.24-.37a9.88 9.88 0 0 1-1.52-5.28c0-5.47 4.47-9.92 9.97-9.92 5.49 0 9.96 4.45 9.96 9.92 0 5.47-4.47 9.9-9.97 9.9Zm5.47-7.42c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.68-1.64-.93-2.24-.25-.59-.5-.51-.68-.52h-.58c-.2 0-.53.07-.8.37-.28.3-1.05 1.02-1.05 2.49s1.08 2.89 1.23 3.09c.15.2 2.12 3.22 5.14 4.52.72.31 1.28.49 1.72.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35Z"/></svg></span><span>WhatsApp</span>
-    </button>
+    <button class="contact-item" type="button"><span class="icon icon-vk">VK</span><span>ВКонтакте</span></button>
+    <button class="contact-item" type="button"><span class="icon icon-max">M</span><span>MAX</span></button>
+    <button class="contact-item" type="button"><span class="icon icon-tg"><svg viewBox="0 0 24 24"><path d="M21.7 3.4 18.5 19c-.2 1.1-.9 1.4-1.8.9l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.3L6 12.7 1.2 11.2c-1-.3-1-1 .2-1.4L20 2.6c.9-.3 1.9.2 1.7.8Z"/></svg></span><span>Telegram</span></button>
+    <button class="contact-item" type="button"><span class="icon icon-wa"><svg viewBox="0 0 32 32"><path d="M16.04 3C9.43 3 4.05 8.35 4.05 14.93c0 2.11.56 4.17 1.62 5.97L3.95 27l6.27-1.64a12 12 0 0 0 5.82 1.48h.01c6.61 0 11.99-5.35 11.99-11.93C28.04 8.35 22.66 3 16.04 3Zm0 21.83h-.01a9.98 9.98 0 0 1-5.09-1.39l-.37-.22-3.72.97.99-3.61-.24-.37a9.88 9.88 0 0 1-1.52-5.28c0-5.47 4.47-9.92 9.97-9.92 5.49 0 9.96 4.45 9.96 9.92 0 5.47-4.47 9.9-9.97 9.9Zm5.47-7.42c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.68-1.64-.93-2.24-.25-.59-.5-.51-.68-.52h-.58c-.2 0-.53.07-.8.37-.28.3-1.05 1.02-1.05 2.49s1.08 2.89 1.23 3.09c.15.2 2.12 3.22 5.14 4.52.72.31 1.28.49 1.72.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35Z"/></svg></span><span>WhatsApp</span></button>
   </div>
-
   <button class="fab" id="contactToggle" type="button" aria-label="Открыть мессенджеры" aria-expanded="false">
-    <svg class="wa" viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 3C9.43 3 4.05 8.35 4.05 14.93c0 2.11.56 4.17 1.62 5.97L3.95 27l6.27-1.64a12 12 0 0 0 5.82 1.48h.01c6.61 0 11.99-5.35 11.99-11.93C28.04 8.35 22.66 3 16.04 3Zm0 21.83h-.01a9.98 9.98 0 0 1-5.09-1.39l-.37-.22-3.72.97.99-3.61-.24-.37a9.88 9.88 0 0 1-1.52-5.28c0-5.47 4.47-9.92 9.97-9.92 5.49 0 9.96 4.45 9.96 9.92 0 5.47-4.47 9.9-9.97 9.9Zm5.47-7.42c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.68-1.64-.93-2.24-.25-.59-.5-.51-.68-.52h-.58c-.2 0-.53.07-.8.37-.28.3-1.05 1.02-1.05 2.49s1.08 2.89 1.23 3.09c.15.2 2.12 3.22 5.14 4.52.72.31 1.28.49 1.72.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35Z"/></svg>
-    <span class="close" aria-hidden="true">×</span>
+    <svg class="wa" viewBox="0 0 32 32"><path d="M16.04 3C9.43 3 4.05 8.35 4.05 14.93c0 2.11.56 4.17 1.62 5.97L3.95 27l6.27-1.64a12 12 0 0 0 5.82 1.48h.01c6.61 0 11.99-5.35 11.99-11.93C28.04 8.35 22.66 3 16.04 3Zm0 21.83h-.01a9.98 9.98 0 0 1-5.09-1.39l-.37-.22-3.72.97.99-3.61-.24-.37a9.88 9.88 0 0 1-1.52-5.28c0-5.47 4.47-9.92 9.97-9.92 5.49 0 9.96 4.45 9.96 9.92 0 5.47-4.47 9.9-9.97 9.9Zm5.47-7.42c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.68-1.64-.93-2.24-.25-.59-.5-.51-.68-.52h-.58c-.2 0-.53.07-.8.37-.28.3-1.05 1.02-1.05 2.49s1.08 2.89 1.23 3.09c.15.2 2.12 3.22 5.14 4.52.72.31 1.28.49 1.72.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35Z"/></svg>
+    <span class="close">×</span>
   </button>
 </div>
-
 <script>
-const wrap=document.getElementById('contactWrap');
-const toggle=document.getElementById('contactToggle');
-const menu=document.getElementById('contactMenu');
+const wrap=document.getElementById('contactWrap'),toggle=document.getElementById('contactToggle'),menu=document.getElementById('contactMenu');
 function setOpen(open){wrap.classList.toggle('open',open);toggle.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-hidden',String(!open));}
 toggle.addEventListener('click',e=>{e.stopPropagation();setOpen(!wrap.classList.contains('open'));});
 menu.addEventListener('click',e=>e.stopPropagation());
 document.addEventListener('click',()=>setOpen(false));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false);});
-document.querySelectorAll('[data-messenger]').forEach(btn=>btn.addEventListener('click',e=>e.preventDefault()));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});
+document.querySelectorAll('.contact-item').forEach(btn=>btn.addEventListener('click',e=>e.preventDefault()));
 </script>
 </body>
 </html>
