@@ -1,0 +1,47 @@
+name: Install generated Bali background
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.upload/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decode generated background
+        run: |
+          mkdir -p assets
+          cat .upload/bg-*.txt | tr -d '\n\r' | base64 -d > assets/bali-road-bg.webp
+
+      - name: Point homepage to local background
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+          old = 'url("https://images.pexels.com/photos/36653750/pexels-photo-36653750.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1600&h=2400")'
+          new = 'url("./assets/bali-road-bg.webp")'
+          if old not in s:
+              raise SystemExit('Old background URL not found in index.html')
+          p.write_text(s.replace(old, new))
+          PY
+
+      - name: Remove temporary upload chunks
+        run: rm -rf .upload
+
+      - name: Commit generated background
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Use generated Bali road background"
+          git push
