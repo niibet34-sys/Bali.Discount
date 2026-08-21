@@ -1,0 +1,37 @@
+name: Install generated Bali background v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.upload2/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decode generated background
+        run: |
+          cat .upload2/bg-*.txt | tr -d '\n\r' | base64 -d > assets/bali-road-bg.webp
+
+      - name: Validate generated background size
+        run: |
+          test "$(wc -c < assets/bali-road-bg.webp)" -eq 37008
+
+      - name: Remove temporary upload chunks
+        run: rm -rf .upload2
+
+      - name: Commit generated background
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Replace Bali background with generated road image"
+          git push
