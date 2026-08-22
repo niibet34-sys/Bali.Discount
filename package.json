@@ -1,0 +1,12 @@
+{
+  "name": "bali-discount-cloudflare",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-cloudflare.mjs",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
