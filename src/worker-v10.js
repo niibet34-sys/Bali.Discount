@@ -1,6 +1,6 @@
 import defaultWorker from "./worker-v4.js";
 import englishWorker from "./worker-en-v2.js";
-import russianWorker from "./worker-ru-enstyle.js";
+import russianWorker from "./worker-ru-icon.js";
 
 export default {
   async fetch(request, env, ctx) {
