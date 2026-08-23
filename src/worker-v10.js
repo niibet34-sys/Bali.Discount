@@ -1,21 +1,9 @@
 import defaultWorker from "./worker-v4.js";
 import englishWorker from "./worker-en-v2.js";
 import russianWorker from "./worker-ru-enstyle.js";
-import notionApiWorker from "./worker-notion-api.js";
-import stableRenderer from "./worker-static-renderer.js";
 
 export default {
   async fetch(request, env, ctx) {
-    const url = new URL(request.url);
-
-    if (isBranch(url.pathname, "/stable/ru") || isBranch(url.pathname, "/stable/en")) {
-      return stableRenderer.fetch(request, env, ctx);
-    }
-
-    if (url.pathname.startsWith("/api/")) {
-      return notionApiWorker.fetch(request, env, ctx);
-    }
-
     const branch = detectBranch(request);
 
     if (branch === "ru") {
