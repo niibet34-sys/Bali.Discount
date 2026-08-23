@@ -2,9 +2,10 @@ const NOTION_ORIGIN = "https://balidiscount.notion.site";
 const NOTION_HOST = "balidiscount.notion.site";
 const NOTION_ROOT_PATH = "/9d9cc7b88191428a86afbaff8b85931d";
 const LOCAL_PREFIX = "/ru";
+const BROWSER_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
 
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request, env) {
     const url = new URL(request.url);
 
     if (isRuPath(url.pathname) || cameFromRu(request)) {
@@ -15,8 +16,6 @@ export default {
         console.error("Notion proxy failed", error);
       }
 
-      // Resilient fallback: the current static /ru/ page remains available
-      // if Notion has a temporary outage. Child pages do not have static copies.
       if (url.pathname === "/ru" || url.pathname === "/ru/") {
         return env.ASSETS.fetch(new Request(new URL("/ru/", url.origin), request));
       }
@@ -52,7 +51,7 @@ function remoteUrlFor(request) {
 
   if (local.pathname === "/ru" || local.pathname === "/ru/") {
     remote.pathname = NOTION_ROOT_PATH;
-    remote.search = local.search || "?pvs=74";
+    remote.search = local.search;
     return remote;
   }
 
@@ -62,8 +61,6 @@ function remoteUrlFor(request) {
     return remote;
   }
 
-  // Root-absolute XHR/assets requested by the Notion app. These arrive here
-  // only when the request Referer points at /ru/.
   remote.pathname = local.pathname;
   remote.search = local.search;
   return remote;
@@ -71,34 +68,86 @@ function remoteUrlFor(request) {
 
 async function proxyNotion(request) {
   const remoteUrl = remoteUrlFor(request);
-  const headers = new Headers(request.headers);
 
-  // Never forward Bali Discount cookies or authentication to Notion.
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        "access-control-allow-origin": "*",
+        "access-control-allow-methods": "GET, HEAD, POST, PUT, PATCH, OPTIONS",
+        "access-control-allow-headers": "Content-Type",
+      },
+    });
+  }
+
+  // Notion public pages hydrate through /api/v3/* calls. These need to look
+  // like direct anonymous browser requests to the Notion public-site host.
+  if (remoteUrl.pathname.startsWith("/api/")) {
+    return proxyNotionApi(request, remoteUrl);
+  }
+
+  const headers = new Headers(request.headers);
   headers.delete("cookie");
   headers.delete("authorization");
   headers.delete("host");
-
+  headers.delete("cf-connecting-ip");
+  headers.delete("cf-ipcountry");
+  headers.delete("cf-ray");
+  headers.set("user-agent", BROWSER_UA);
+  headers.set("referer", `${NOTION_ORIGIN}${NOTION_ROOT_PATH}`);
   if (headers.has("origin")) headers.set("origin", NOTION_ORIGIN);
-  if (headers.has("referer")) headers.set("referer", `${NOTION_ORIGIN}/`);
 
-  const init = {
-    method: request.method,
-    headers,
-    redirect: "manual",
-  };
+  const init = { method: request.method, headers, redirect: "manual" };
   if (!new Set(["GET", "HEAD"]).has(request.method)) init.body = request.body;
 
   const upstream = await fetch(remoteUrl.toString(), init);
-  const outHeaders = new Headers(upstream.headers);
+  return rewriteUpstream(upstream);
+}
 
-  // We serve the page as a first-party Bali Discount page, not as an iframe.
-  outHeaders.delete("x-frame-options");
-  outHeaders.delete("content-security-policy");
-  outHeaders.delete("content-security-policy-report-only");
-  outHeaders.delete("set-cookie");
-  outHeaders.delete("report-to");
-  outHeaders.delete("nel");
+async function proxyNotionApi(request, remoteUrl) {
+  const headers = new Headers();
+  headers.set("content-type", "application/json;charset=UTF-8");
+  headers.set("accept", "*/*");
+  headers.set("user-agent", BROWSER_UA);
+  headers.set("origin", NOTION_ORIGIN);
+  headers.set("referer", `${NOTION_ORIGIN}${NOTION_ROOT_PATH}`);
 
+  let body;
+  if (!remoteUrl.pathname.startsWith("/api/v3/getPublicPageData") && !new Set(["GET", "HEAD"]).has(request.method)) {
+    body = request.body;
+  }
+
+  const upstream = await fetch(remoteUrl.toString(), {
+    method: request.method === "GET" ? "GET" : "POST",
+    headers,
+    body,
+    redirect: "manual",
+  });
+
+  const outHeaders = sanitizeHeaders(upstream.headers);
+  outHeaders.set("access-control-allow-origin", "*");
+  outHeaders.set("cache-control", "no-store");
+
+  return new Response(upstream.body, {
+    status: upstream.status,
+    statusText: upstream.statusText,
+    headers: outHeaders,
+  });
+}
+
+function sanitizeHeaders(input) {
+  const headers = new Headers(input);
+  headers.delete("x-frame-options");
+  headers.delete("content-security-policy");
+  headers.delete("content-security-policy-report-only");
+  headers.delete("set-cookie");
+  headers.delete("report-to");
+  headers.delete("nel");
+  return headers;
+}
+
+function rewriteUpstream(upstream) {
+  const outHeaders = sanitizeHeaders(upstream.headers);
   const location = outHeaders.get("location");
   if (location) outHeaders.set("location", localizeUrl(location));
 
@@ -137,19 +186,10 @@ async function proxyNotion(request) {
 class HeadInjector {
   element(element) {
     element.append(`<style id="bali-notion-overrides">
-/* Keep the Notion document, but remove Notion's promotional/navigation chrome. */
-.notion-topbar,
-.notion-navbar,
-[class*="notion-topbar"],
-[class*="notion-navbar"],
-[class*="notion-site-header"] { display:none !important; }
-body { padding-top:0 !important; }
-
+.notion-topbar,.notion-topbar-mobile,.notion-navbar,[class*="notion-topbar"],[class*="notion-navbar"],[class*="notion-site-header"]{display:none!important}body{padding-top:0!important}
 #bali-contact-wrap{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:2147483646;display:flex;flex-direction:column;align-items:flex-end;gap:11px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 #bali-contact-menu{width:228px;padding:9px;border-radius:22px;background:rgba(255,255,255,.97);border:1px solid rgba(15,23,42,.09);box-shadow:0 18px 50px rgba(0,0,0,.18);backdrop-filter:blur(18px);opacity:0;transform:translateY(12px) scale(.97);pointer-events:none;transition:.18s ease}
-#bali-contact-wrap.open #bali-contact-menu{opacity:1;transform:none;pointer-events:auto}
-.bali-contact-item{width:100%;height:51px;border:0;background:transparent;border-radius:14px;padding:0 10px;display:flex;align-items:center;gap:12px;font:600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#111827;text-align:left}
-.bali-contact-item+.bali-contact-item{margin-top:3px}.bali-contact-item:hover{background:#f5f6f7}.bali-msg-icon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:white;font-weight:800;flex:0 0 auto}.bali-vk{background:#2787f5;font-size:13px}.bali-max{background:linear-gradient(145deg,#2a7df5,#7655ff)}.bali-tg{background:#229ed9}.bali-wa{background:#25d366}
+#bali-contact-wrap.open #bali-contact-menu{opacity:1;transform:none;pointer-events:auto}.bali-contact-item{width:100%;height:51px;border:0;background:transparent;border-radius:14px;padding:0 10px;display:flex;align-items:center;gap:12px;font:600 15px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#111827;text-align:left}.bali-contact-item+.bali-contact-item{margin-top:3px}.bali-contact-item:hover{background:#f5f6f7}.bali-msg-icon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:800;flex:0 0 auto}.bali-vk{background:#2787f5;font-size:13px}.bali-max{background:linear-gradient(145deg,#2a7df5,#7655ff)}.bali-tg{background:#229ed9}.bali-wa{background:#25d366}
 #bali-contact-toggle{width:58px;height:58px;border:0;padding:0;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 14px 34px rgba(0,0,0,.25);font-size:28px;line-height:1;cursor:pointer}#bali-contact-toggle .bali-close{display:none}#bali-contact-wrap.open #bali-contact-toggle .bali-open{display:none}#bali-contact-wrap.open #bali-contact-toggle .bali-close{display:block}
 </style>`, { html: true });
   }
@@ -169,62 +209,27 @@ class ResourceAttributeRewriter {
   element(element) {
     const value = element.getAttribute(this.attribute);
     if (!value || value.startsWith("data:") || value.startsWith("blob:") || value.startsWith("#")) return;
-
-    // Root-relative Notion resources would otherwise point at bali.discount/.
     if (value.startsWith("/")) {
       element.setAttribute(this.attribute, `${LOCAL_PREFIX}${value}`);
       return;
     }
-
     try {
       const parsed = new URL(value);
-      if (parsed.hostname === NOTION_HOST) {
-        element.setAttribute(this.attribute, `${LOCAL_PREFIX}${parsed.pathname}${parsed.search}${parsed.hash}`);
-      }
-    } catch {
-      // Plain relative resources already resolve underneath /ru/ and stay proxied.
-    }
+      if (parsed.hostname === NOTION_HOST) element.setAttribute(this.attribute, `${LOCAL_PREFIX}${parsed.pathname}${parsed.search}${parsed.hash}`);
+    } catch {}
   }
 }
 
 class BodyInjector {
   element(element) {
     element.append(`<div id="bali-contact-wrap">
-  <div id="bali-contact-menu" aria-hidden="true">
-    <button class="bali-contact-item" type="button"><span class="bali-msg-icon bali-vk">VK</span><span>ВКонтакте</span></button>
-    <button class="bali-contact-item" type="button"><span class="bali-msg-icon bali-max">M</span><span>MAX</span></button>
-    <button class="bali-contact-item" type="button"><span class="bali-msg-icon bali-tg">✈</span><span>Telegram</span></button>
-    <button class="bali-contact-item" type="button"><span class="bali-msg-icon bali-wa">☎</span><span>WhatsApp</span></button>
-  </div>
-  <button id="bali-contact-toggle" type="button" aria-label="Открыть мессенджеры" aria-expanded="false"><span class="bali-open">☎</span><span class="bali-close">×</span></button>
-</div>
-<script id="bali-notion-ui">
-(()=>{
- const w=document.getElementById('bali-contact-wrap'),t=document.getElementById('bali-contact-toggle'),m=document.getElementById('bali-contact-menu');
- const setOpen=v=>{w?.classList.toggle('open',v);t?.setAttribute('aria-expanded',String(v));m?.setAttribute('aria-hidden',String(!v))};
- t?.addEventListener('click',e=>{e.stopPropagation();setOpen(!w.classList.contains('open'))});
- m?.addEventListener('click',e=>{e.stopPropagation();e.preventDefault()});
- document.addEventListener('click',()=>setOpen(false));
- document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});
-
- const cleanNotionChrome=()=>{
-   document.querySelectorAll('a,button,div').forEach(el=>{
-     const txt=(el.textContent||'').trim().toLowerCase();
-     if((txt==='get notion free'||txt==='get notion'||txt==='built with notion') && el.children.length<4){
-       el.style.setProperty('display','none','important');
-     }
-   });
-   document.querySelectorAll('a[href]').forEach(a=>{
-     try{
-       const u=new URL(a.href);
-       if(u.hostname==='${NOTION_HOST}') a.href='/ru'+u.pathname+u.search+u.hash;
-     }catch{}
-   });
- };
- cleanNotionChrome();
- new MutationObserver(cleanNotionChrome).observe(document.documentElement,{subtree:true,childList:true});
-})();
-</script>`, { html: true });
+<div id="bali-contact-menu" aria-hidden="true">
+<button class="bali-contact-item" type="button"><span class="bali-msg-icon bali-vk">VK</span><span>ВКонтакте</span></button>
+<button class="bali-contact-item" type="button"><span class="bali-msg-icon bali-max">M</span><span>MAX</span></button>
+<button class="bali-contact-item" type="button"><span class="bali-msg-icon bali-tg">✈</span><span>Telegram</span></button>
+<button class="bali-contact-item" type="button"><span class="bali-msg-icon bali-wa">☎</span><span>WhatsApp</span></button>
+</div><button id="bali-contact-toggle" type="button" aria-label="Открыть мессенджеры" aria-expanded="false"><span class="bali-open">☎</span><span class="bali-close">×</span></button></div>
+<script id="bali-notion-ui">(()=>{window.CONFIG=window.CONFIG||{};window.CONFIG.domainBaseUrl=location.origin;const w=document.getElementById('bali-contact-wrap'),t=document.getElementById('bali-contact-toggle'),m=document.getElementById('bali-contact-menu');const setOpen=v=>{w?.classList.toggle('open',v);t?.setAttribute('aria-expanded',String(v));m?.setAttribute('aria-hidden',String(!v))};t?.addEventListener('click',e=>{e.stopPropagation();setOpen(!w.classList.contains('open'))});m?.addEventListener('click',e=>{e.stopPropagation();e.preventDefault()});document.addEventListener('click',()=>setOpen(false));document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});const clean=()=>{document.querySelectorAll('a,button,div').forEach(el=>{const txt=(el.textContent||'').trim().toLowerCase();if((txt==='get notion free'||txt==='get notion'||txt==='built with notion')&&el.children.length<4)el.style.setProperty('display','none','important')});document.querySelectorAll('a[href]').forEach(a=>{try{const u=new URL(a.href);if(u.hostname==='${NOTION_HOST}')a.href='/ru'+u.pathname+u.search+u.hash}catch{}})};clean();new MutationObserver(clean).observe(document.documentElement,{subtree:true,childList:true})})();</script>`, { html: true });
   }
 }
 
