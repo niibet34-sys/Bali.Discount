@@ -3,16 +3,24 @@ import appWorker from "./worker-v3.js";
 export default {
   async fetch(request, env, ctx) {
     const response = await appWorker.fetch(request, env, ctx);
-    if (!isRussianRequest(request)) return response;
-
     const type = response.headers.get("content-type") || "";
     if (!type.includes("text/html") || !response.body) return response;
 
-    return new HTMLRewriter()
-      .on("body", new RussianMessengerEnhancer())
-      .transform(response);
+    const homepage = isHomepageRequest(request);
+    const russian = isRussianRequest(request);
+    if (!homepage && !russian) return response;
+
+    const rewriter = new HTMLRewriter();
+    if (homepage) rewriter.on("head", new DesktopBackgroundEnhancer());
+    if (russian) rewriter.on("body", new RussianMessengerEnhancer());
+    return rewriter.transform(response);
   },
 };
+
+function isHomepageRequest(request) {
+  const url = new URL(request.url);
+  return url.pathname === "/" || url.pathname === "/index.html";
+}
 
 function isRussianRequest(request) {
   const url = new URL(request.url);
@@ -25,6 +33,24 @@ function isRussianRequest(request) {
     return ref.origin === url.origin && (ref.pathname === "/ru" || ref.pathname.startsWith("/ru/"));
   } catch {
     return false;
+  }
+}
+
+class DesktopBackgroundEnhancer {
+  element(element) {
+    element.append(`<style id="bali-responsive-background">
+@media (min-width:760px){
+  .hero{
+    background-image:linear-gradient(180deg,rgba(4,8,7,.03) 0%,rgba(4,8,7,.05) 24%,rgba(4,8,7,.12) 50%,rgba(4,8,7,.29) 76%,rgba(3,8,7,.52) 100%),url("/assets/bali-bg-desktop-5k.webp")!important;
+    background-size:cover!important;
+    background-repeat:no-repeat!important;
+    background-position:center 52%!important;
+  }
+}
+@media (min-width:1200px){
+  .hero{background-position:center 56%!important}
+}
+</style>`, { html: true });
   }
 }
 
