@@ -1,5 +1,5 @@
 import defaultWorker from "./worker-v2.js";
-import englishWorker from "./worker-en.js";
+import englishWorker from "./worker-en-v2.js";
 
 export default {
   async fetch(request, env, ctx) {
