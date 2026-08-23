@@ -9,6 +9,12 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
+    if (url.pathname === "/en/" || url.pathname === "/ru/") {
+      const target = new URL(url.toString());
+      target.pathname = url.pathname.slice(0, -1);
+      return Response.redirect(target.toString(), 301);
+    }
+
     if (url.hostname === PREVIEW_HOST) {
       return nooxyWorker.fetch(request, env, ctx);
     }
