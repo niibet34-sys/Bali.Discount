@@ -41,7 +41,7 @@ class DesktopBackgroundEnhancer {
     element.append(`<style id="bali-responsive-background">
 @media (min-width:760px){
   .hero{
-    background-image:linear-gradient(180deg,rgba(4,8,7,.03) 0%,rgba(4,8,7,.06) 28%,rgba(4,8,7,.12) 56%,rgba(3,8,7,.30) 100%),url("/assets/bali-road-bg.webp")!important;
+    background-image:linear-gradient(180deg,rgba(4,8,7,.03) 0%,rgba(4,8,7,.06) 28%,rgba(4,8,7,.12) 56%,rgba(3,8,7,.30) 100%),url("/assets/bali-desktop-road-user.webp")!important;
     background-size:cover!important;
     background-repeat:no-repeat!important;
     background-position:center center!important;
@@ -49,7 +49,7 @@ class DesktopBackgroundEnhancer {
   }
 }
 @media (min-width:1200px){
-  .hero{background-position:center 54%!important}
+  .hero{background-position:center 52%!important}
 }
 </style>`, { html: true });
   }
