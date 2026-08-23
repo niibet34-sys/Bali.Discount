@@ -6,21 +6,14 @@ export default {
     const type = response.headers.get("content-type") || "";
     if (!type.includes("text/html") || !response.body) return response;
 
-    const homepage = isHomepageRequest(request);
     const russian = isRussianRequest(request);
-    if (!homepage && !russian) return response;
+    if (!russian) return response;
 
     const rewriter = new HTMLRewriter();
-    if (homepage) rewriter.on("head", new DesktopBackgroundEnhancer());
-    if (russian) rewriter.on("body", new RussianMessengerEnhancer());
+    rewriter.on("body", new RussianMessengerEnhancer());
     return rewriter.transform(response);
   },
 };
-
-function isHomepageRequest(request) {
-  const url = new URL(request.url);
-  return url.pathname === "/" || url.pathname === "/index.html";
-}
 
 function isRussianRequest(request) {
   const url = new URL(request.url);
@@ -33,25 +26,6 @@ function isRussianRequest(request) {
     return ref.origin === url.origin && (ref.pathname === "/ru" || ref.pathname.startsWith("/ru/"));
   } catch {
     return false;
-  }
-}
-
-class DesktopBackgroundEnhancer {
-  element(element) {
-    element.append(`<style id="bali-responsive-background">
-@media (min-width:760px){
-  .hero{
-    background-image:linear-gradient(180deg,rgba(4,8,7,.03) 0%,rgba(4,8,7,.06) 28%,rgba(4,8,7,.12) 56%,rgba(3,8,7,.30) 100%),url("/assets/bali-desktop-road-user.webp")!important;
-    background-size:cover!important;
-    background-repeat:no-repeat!important;
-    background-position:center center!important;
-    background-color:#091412!important;
-  }
-}
-@media (min-width:1200px){
-  .hero{background-position:center 52%!important}
-}
-</style>`, { html: true });
   }
 }
 
