@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "bali-discount",
-  "main": "./src/worker-v7.js",
+  "main": "./src/worker-v9.js",
   "compatibility_date": "2026-08-22",
   "assets": {
     "directory": "./dist",
