@@ -1,14 +1,15 @@
 import defaultWorker from "./worker-v4.js";
-import englishWorker from "./worker-en-v2.js";
-import russianWorker from "./worker-ru-enstyle.js";
 import stableRenderer from "./worker-stable-renderer-v2.js";
 import nooxyWorker from "./worker-nooxy.js";
+
+const PREVIEW_HOST = "bali-discount.niibet34.workers.dev";
+const PRODUCTION_HOSTS = new Set(["bali.discount", "www.bali.discount"]);
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
-    if (url.hostname === "bali-discount.niibet34.workers.dev") {
+    if (url.hostname === PREVIEW_HOST) {
       return nooxyWorker.fetch(request, env, ctx);
     }
 
@@ -16,37 +17,47 @@ export default {
       return stableRenderer.fetch(request, env, ctx);
     }
 
-    const branch = detectBranch(request);
-
-    if (branch === "ru") {
-      return russianWorker.fetch(request, env, ctx);
-    }
-
-    if (branch === "en") {
-      return englishWorker.fetch(request, env, ctx);
+    if (PRODUCTION_HOSTS.has(url.hostname) && shouldUseNooxy(request, url)) {
+      return nooxyWorker.fetch(request, env, ctx);
     }
 
     return defaultWorker.fetch(request, env, ctx);
   },
 };
 
-function detectBranch(request) {
-  const url = new URL(request.url);
+function shouldUseNooxy(request, url) {
+  const path = url.pathname;
 
-  if (isBranch(url.pathname, "/ru")) return "ru";
-  if (isBranch(url.pathname, "/en")) return "en";
+  if (isBranch(path, "/ru") || isBranch(path, "/en")) return true;
+
+  if (
+    path.startsWith("/api/") ||
+    path.startsWith("/_assets/") ||
+    path.startsWith("/image/") ||
+    path.startsWith("/images/") ||
+    path.startsWith("/f/refresh") ||
+    path.startsWith("/app/") ||
+    path.startsWith("/200/")
+  ) return true;
+
+  if (looksLikeNotionPage(path)) return true;
 
   const referer = request.headers.get("referer");
-  if (!referer) return null;
+  if (!referer) return false;
 
   try {
     const ref = new URL(referer);
-    if (ref.origin !== url.origin) return null;
-    if (isBranch(ref.pathname, "/ru")) return "ru";
-    if (isBranch(ref.pathname, "/en")) return "en";
-  } catch {}
+    if (ref.origin !== url.origin) return false;
+    return isBranch(ref.pathname, "/ru") ||
+      isBranch(ref.pathname, "/en") ||
+      looksLikeNotionPage(ref.pathname);
+  } catch {
+    return false;
+  }
+}
 
-  return null;
+function looksLikeNotionPage(pathname) {
+  return /[0-9a-f]{32}(?:\/)?$/i.test(pathname);
 }
 
 function isBranch(pathname, prefix) {
