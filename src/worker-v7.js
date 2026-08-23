@@ -14,20 +14,25 @@ export default {
 
     const url = new URL(request.url);
     const type = (response.headers.get("content-type") || "").toLowerCase();
-    const isNotionBranch = isBranch(url.pathname, "/ru") || isBranch(url.pathname, "/en");
+    const isRu = isBranch(url.pathname, "/ru");
+    const isEn = isBranch(url.pathname, "/en");
+    const isNotionBranch = isRu || isEn;
 
-    // Notion client bundles contain absolute notion.so/app.notion.com endpoints.
-    // If those are left untouched, hydration bypasses the Worker and can replace
-    // a correctly server-rendered public page with Notion's client-side 404.
+    // Keep Notion hydration inside bali.discount instead of letting client
+    // bundles call notion.so/app.notion.com directly.
     if (isNotionBranch && isJavascript(url.pathname, type)) {
       return rewriteJavascript(response, url.origin);
     }
 
     if (isNotionBranch && type.includes("text/html")) {
-      return new HTMLRewriter()
-        .on("head", new EarlyNotionConfig())
-        .on("body", new HydrationStabilityGuard())
-        .transform(response);
+      const rewriter = new HTMLRewriter().on("head", new EarlyNotionConfig());
+
+      // The snapshot guard is intentionally NOT used on Russian pages.
+      // Replacing #notion-app with a clone breaks Notion's native mobile
+      // scroll/touch handling. Russian pages now keep the live Notion DOM.
+      if (isEn) rewriter.on("body", new HydrationStabilityGuard());
+
+      return rewriter.transform(response);
     }
 
     return response;
@@ -46,7 +51,6 @@ async function rewriteJavascript(response, localOrigin) {
   let text = await response.text();
   const localHost = new URL(localOrigin).host;
 
-  // Replace the most specific hosts first, then the generic notion.so host.
   for (const host of NOTION_HOSTS) {
     text = text.split(`https://${host}`).join(localOrigin);
     text = text.split(`http://${host}`).join(localOrigin);
