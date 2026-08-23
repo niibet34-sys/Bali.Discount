@@ -6,6 +6,9 @@
     "build": "node scripts/build-cloudflare.mjs",
     "deploy": "npm run build && wrangler deploy"
   },
+  "dependencies": {
+    "nooxy": "2.0.0"
+  },
   "devDependencies": {
     "wrangler": "^4.0.0"
   }
