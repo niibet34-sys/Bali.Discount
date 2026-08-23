@@ -4,10 +4,43 @@ import nooxyWorker from "./worker-nooxy.js";
 
 const PREVIEW_HOST = "bali-discount.niibet34.workers.dev";
 const PRODUCTION_HOSTS = new Set(["bali.discount", "www.bali.discount"]);
+const BUILD_ID = "2026-08-23-nooxy-bgdiag-01";
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+
+    if (url.pathname === "/__version") {
+      const assetUrl = new URL("/assets/bali-desktop-road-user.webp", url.origin);
+      let assetStatus = null;
+      let assetType = null;
+      let assetLength = null;
+      try {
+        const assetResponse = await env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+        assetStatus = assetResponse.status;
+        assetType = assetResponse.headers.get("content-type");
+        assetLength = assetResponse.headers.get("content-length");
+      } catch (error) {
+        assetStatus = `error:${error?.message || String(error)}`;
+      }
+
+      return new Response(JSON.stringify({
+        build: BUILD_ID,
+        host: url.hostname,
+        asset: {
+          path: "/assets/bali-desktop-road-user.webp",
+          status: assetStatus,
+          contentType: assetType,
+          contentLength: assetLength,
+        },
+      }, null, 2), {
+        status: 200,
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+          "cache-control": "no-store",
+        },
+      });
+    }
 
     if (url.pathname === "/en/" || url.pathname === "/ru/") {
       const target = new URL(url.toString());
