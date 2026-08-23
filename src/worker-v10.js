@@ -2,10 +2,15 @@ import defaultWorker from "./worker-v4.js";
 import englishWorker from "./worker-en-v2.js";
 import russianWorker from "./worker-ru-enstyle.js";
 import stableRenderer from "./worker-stable-renderer-v2.js";
+import nooxyWorker from "./worker-nooxy.js";
 
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+
+    if (url.hostname === "bali-discount.niibet34.workers.dev") {
+      return nooxyWorker.fetch(request, env, ctx);
+    }
 
     if (isBranch(url.pathname, "/stable/ru") || isBranch(url.pathname, "/stable/en")) {
       return stableRenderer.fetch(request, env, ctx);
