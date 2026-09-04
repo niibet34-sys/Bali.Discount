@@ -73,8 +73,7 @@ function renderShell(cfg, notionUrl) {
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;background:#fff;overflow:hidden}
-#notion-frame{position:fixed;inset:0;width:100%;height:100vh;height:100dvh;border:0;background:#fff;display:block}
-#notion-top-mask{position:fixed;top:0;left:0;right:0;height:52px;background:#fff;z-index:2147483645}
+#notion-frame{position:fixed;left:0;top:-52px;width:100%;height:calc(100vh + 52px);height:calc(100dvh + 52px);border:0;background:#fff;display:block}
 .wa,.contact{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:2147483646;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 .wa,.contact summary{width:58px;height:58px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 14px 34px rgba(0,0,0,.25);text-decoration:none}
 .wa svg,.contact summary svg{display:block;width:39px;height:39px;fill:currentColor}
@@ -85,7 +84,6 @@ html,body{margin:0;width:100%;height:100%;background:#fff;overflow:hidden}
 </head>
 <body>
 <iframe id="notion-frame" src="${escapeAttr(notionUrl)}" title="${escapeAttr(cfg.title)}" loading="eager" allow="clipboard-write; fullscreen" allowfullscreen></iframe>
-<div id="notion-top-mask" aria-hidden="true"></div>
 ${contactHtml(cfg)}
 </body>
 </html>`;
