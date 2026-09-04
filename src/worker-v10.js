@@ -1,10 +1,11 @@
 import defaultWorker from "./worker-v4.js";
 import stableRenderer from "./worker-stable-renderer-v2.js";
+import stableProductionRenderer from "./worker-stable-production.js";
 import nooxyWorker from "./worker-nooxy.js";
 
 const PREVIEW_HOST = "bali-discount.niibet34.workers.dev";
 const PRODUCTION_HOSTS = new Set(["bali.discount", "www.bali.discount"]);
-const BUILD_ID = "2026-08-23-nooxy-bgdiag-01";
+const BUILD_ID = "2026-09-04-stable-ssr-production-01";
 
 export default {
   async fetch(request, env, ctx) {
@@ -54,6 +55,13 @@ export default {
 
     if (isBranch(url.pathname, "/stable/ru") || isBranch(url.pathname, "/stable/en")) {
       return stableRenderer.fetch(request, env, ctx);
+    }
+
+    if (
+      PRODUCTION_HOSTS.has(url.hostname) &&
+      (isBranch(url.pathname, "/ru") || isBranch(url.pathname, "/en"))
+    ) {
+      return stableProductionRenderer.fetch(request, env, ctx);
     }
 
     if (PRODUCTION_HOSTS.has(url.hostname) && shouldUseNooxy(request, url)) {
