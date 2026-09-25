@@ -1,7 +1,7 @@
 (() => {
   const CONFIG = {
     whatsappNumber: "628999844455",
-    leadEndpoint: "",
+    leadEndpoint: "/api/villa-lead",
     advertiseText: "Hello! I’d like to advertise my villa on the Bali Discount Villas page."
   };
 
@@ -101,17 +101,12 @@
     formStatus.textContent = "Preparing your request…";
 
     try {
-      if (CONFIG.leadEndpoint) {
-        const payload = Object.fromEntries(data.entries());
-        payload.source = "bali.discount/villas";
-        payload.createdAt = new Date().toISOString();
-        await sendToEndpoint(payload);
-        formStatus.textContent = "Request sent. We’ll contact you using the details above.";
-        form.reset();
-      } else {
-        formStatus.textContent = "Opening WhatsApp with your request…";
-        window.open(waUrl(message), "_blank", "noopener");
-      }
+      const payload = Object.fromEntries(data.entries());
+      payload.source = "bali.discount/villas";
+      payload.createdAt = new Date().toISOString();
+      await sendToEndpoint(payload);
+      formStatus.textContent = "Request sent. We’ll contact you on WhatsApp with suitable villa options.";
+      form.reset();
     } catch (error) {
       console.error(error);
       formStatus.textContent = "Direct delivery is temporarily unavailable. Opening WhatsApp instead…";
