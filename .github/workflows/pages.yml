@@ -23,6 +23,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Build retina mobile background
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -hide_banner -loglevel error -y \
+            -i assets/bali-mobile-bg-v2.avif \
+            -vf "scale=1440:-2:flags=lanczos,unsharp=5:5:0.55:5:5:0.0" \
+            -c:v libwebp -quality 89 -compression_level 6 -frames:v 1 \
+            assets/bali-mobile-bg-retina.webp
+          test -s assets/bali-mobile-bg-retina.webp
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
