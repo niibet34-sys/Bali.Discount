@@ -14,7 +14,6 @@
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#091412}body{color:#fff;font-family:"Manrope",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;background:#091412}a{color:inherit;text-decoration:none}
 .hero{min-height:100svh;position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,rgba(4,8,7,.01) 0%,rgba(4,8,7,.03) 24%,rgba(4,8,7,.10) 50%,rgba(4,8,7,.26) 76%,rgba(4,8,7,.48) 100%),url("./assets/bali-road-bg.webp") center center/cover no-repeat}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 76% 8%,rgba(255,215,145,.08),transparent 23%);z-index:0;pointer-events:none}
-.hero-bg-desktop{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;pointer-events:none}
 .shell{position:relative;z-index:1;width:min(100%,560px);min-height:100svh;margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 20px max(20px,env(safe-area-inset-bottom));display:flex;flex-direction:column}
 .top{padding-top:8px;display:flex;flex-direction:column;align-items:center}.logo{width:112px;height:112px;object-fit:cover;border-radius:50%;clip-path:circle(49% at 50% 50%);display:block;filter:drop-shadow(0 14px 26px rgba(0,0,0,.34));transform:scale(1.01);transform-origin:center}
 .main{margin:auto 0;text-align:center;padding:24px 0 16px;transform:translateY(-38px)}.kicker{margin:0 0 12px;font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.86);font-weight:600;text-shadow:0 2px 10px rgba(0,0,0,.42)}
@@ -110,13 +109,12 @@ h1{margin:0;font-family:"Italiana",Georgia,"Times New Roman",serif;font-size:cla
 .villas:hover .villa-arrow,.villas:focus-visible .villa-arrow{transform:translateX(3px);color:#fff0d2}
 .whatsapp{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(86px,calc(env(safe-area-inset-bottom) + 18px));width:58px;height:58px;border:0;padding:0;border-radius:50%;background:#25D366;color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.25);display:grid;place-items:center;z-index:10;transition:transform .18s ease,filter .18s ease}.whatsapp:hover,.whatsapp:focus-visible{transform:translateY(-2px) scale(1.03);filter:brightness(1.03);outline:none}.whatsapp svg{display:block;width:68%;height:68%;fill:currentColor}
 @media(max-height:760px) and (max-width:759px){.logo{width:96px;height:96px}.main{padding:12px 0 8px;transform:translateY(-26px)}h1{font-size:2.96rem}.promise{margin-top:11px;font-size:.80rem}.micro{margin-top:9px;font-size:.80rem;line-height:1.34}.rule{margin:11px auto 13px}.lang{min-height:44px;font-size:.85rem}.bottom{gap:10px}.villas{min-height:60px;padding:9px 14px 9px 18px}.villa-title{font-size:1.22rem}.villa-sub{font-size:.49rem}.villa-arrow{width:30px;height:30px;font-size:1.15rem}.whatsapp{bottom:max(78px,calc(env(safe-area-inset-bottom) + 16px))}}
-@media(min-width:760px){.hero{background:#091412!important}.hero::before{display:none!important}.hero-bg-desktop{display:block}.shell{width:min(100%,740px);padding-left:28px;padding-right:28px}.logo{width:124px;height:124px}.main{max-width:680px;align-self:center;transform:translateY(-20px)}h1 em{display:inline}.grid{grid-template-columns:repeat(5,1fr)}.lang--full{grid-column:auto;width:auto;justify-self:auto}.whatsapp{bottom:max(18px,env(safe-area-inset-bottom))}}
-@media(min-width:1200px){.hero-bg-desktop{object-position:center 52%}}
+@media(min-width:760px){.hero{background:linear-gradient(180deg,rgba(4,8,7,.04) 0%,rgba(4,8,7,.08) 28%,rgba(4,8,7,.16) 58%,rgba(4,8,7,.38) 100%),url("./assets/bali-road-bg.webp") center 54%/cover no-repeat!important}.hero::before{display:block!important;background:radial-gradient(circle at 75% 12%,rgba(255,215,145,.10),transparent 26%)}.shell{width:min(100%,740px);padding-left:28px;padding-right:28px}.logo{width:124px;height:124px}.main{max-width:680px;align-self:center;transform:translateY(-20px)}h1 em{display:inline}.grid{grid-template-columns:repeat(5,1fr)}.lang--full{grid-column:auto;width:auto;justify-self:auto}.whatsapp{bottom:max(18px,env(safe-area-inset-bottom))}}
+@media(min-width:1200px){.hero{background-position:center 58%!important}}
 </style>
 </head>
 <body>
 <main class="hero">
-<img class="hero-bg-desktop" id="desktop-bg" alt="" aria-hidden="true">
 <section class="shell" aria-label="Bali Discount">
 <header class="top"><img class="logo" src="./assets/bali-discount-logo.webp" alt="Bali Discount logo" width="224" height="224"></header>
 <section class="main"><p class="kicker">Bali · Private experiences</p><h1>Private tours <em>in Bali.</em></h1><p class="promise">At group-tour prices</p><p class="micro">With guides in your language.</p><div class="rule" aria-hidden="true"></div><p class="label">Choose your language</p><div class="grid">
@@ -134,19 +132,5 @@ h1{margin:0;font-family:"Italiana",Georgia,"Times New Roman",serif;font-size:cla
 </main>
 <script>
 document.querySelectorAll('[data-lang]').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('baliDiscountLanguage',a.dataset.lang)}catch(e){}}));
-(async()=>{
-  if(!window.matchMedia('(min-width:760px)').matches)return;
-  try{
-    const urls=[1,2,3,4,5,6].map(n=>`/assets/desktop-bg-part-${n}.txt?v=20260824-0200`);
-    const parts=await Promise.all(urls.map(async url=>{
-      const response=await fetch(url,{cache:'no-store'});
-      if(!response.ok)throw new Error(`Background part failed: ${response.status}`);
-      return response.text();
-    }));
-    const base64=parts.join('').replace(/\s+/g,'');
-    const bg=document.getElementById('desktop-bg');
-    if(bg)bg.src='data:image/webp;base64,'+base64;
-  }catch(error){console.error('Desktop background load failed',error)}
-})();
 </script>
 </body></html>
