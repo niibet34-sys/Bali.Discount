@@ -4,138 +4,425 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#091412">
-<meta name="description" content="Private Bali tours at group-tour prices. Choose your language and explore Bali with a private guide.">
-<title>Bali Discount — Private Tours in Bali</title>
+<meta name="description" content="Private tours, villas and curated Bali experiences from Bali Discount.">
+<title>Bali Discount — Private Experiences in Bali</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="./assets/bali-mobile-bg-v2.avif" type="image/avif" media="(max-width:759px)">
 <link rel="preload" as="image" href="https://images.pexels.com/photos/35783262/pexels-photo-35783262.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=2560&h=1600" media="(min-width:760px)" fetchpriority="high">
+
 <style>
-:root{--orange:#ff9800;--orange-2:#ffb845;--cream:#fff8ef;--line:rgba(255,255,255,.18);--text-soft:rgba(255,255,255,.88)}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#091412}body{color:#fff;font-family:"Manrope",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;background:#091412}a{color:inherit;text-decoration:none}
-.hero{min-height:100svh;position:relative;overflow:hidden;isolation:isolate;background:#091412}
-@media(max-width:759px){.hero{background:linear-gradient(180deg,rgba(4,8,7,.01) 0%,rgba(4,8,7,.03) 24%,rgba(4,8,7,.10) 50%,rgba(4,8,7,.26) 76%,rgba(4,8,7,.48) 100%),url("./assets/bali-mobile-bg-v2.avif") center 52%/cover no-repeat}}
-.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 76% 8%,rgba(255,215,145,.08),transparent 23%);z-index:0;pointer-events:none}
-.shell{position:relative;z-index:1;width:min(100%,560px);min-height:100svh;margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 20px max(20px,env(safe-area-inset-bottom));display:flex;flex-direction:column}
-.top{padding-top:8px;display:flex;flex-direction:column;align-items:center}.logo{width:112px;height:112px;object-fit:cover;border-radius:50%;clip-path:circle(49% at 50% 50%);display:block;filter:drop-shadow(0 14px 26px rgba(0,0,0,.34));transform:scale(1.01);transform-origin:center}
-.main{margin:auto 0;text-align:center;padding:24px 0 16px;transform:translateY(-38px)}.kicker{margin:0 0 12px;font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.86);font-weight:600;text-shadow:0 2px 10px rgba(0,0,0,.42)}
-h1{margin:0;font-family:"Italiana",Georgia,"Times New Roman",serif;font-size:clamp(3.25rem,16vw,5.45rem);line-height:.86;letter-spacing:-.032em;font-weight:400;text-shadow:0 5px 22px rgba(0,0,0,.48);text-wrap:balance}h1 em{display:block;font-style:normal;font-weight:400;color:var(--cream);letter-spacing:-.022em;font-size:.90em}
-.promise{margin:18px 0 0;color:#ffe1a8;text-transform:uppercase;font-weight:700;letter-spacing:.115em;font-size:clamp(.84rem,3.7vw,.98rem);text-shadow:0 3px 12px rgba(0,0,0,.50)}
-.micro{margin:14px auto 0;max-width:21rem;color:var(--text-soft);font-family:"Manrope",sans-serif;font-size:.93rem;line-height:1.48;font-weight:400;letter-spacing:.005em;text-shadow:0 2px 10px rgba(0,0,0,.48)}
-.rule{width:58px;height:1px;margin:17px auto 20px;border-radius:999px;background:linear-gradient(90deg,var(--orange),#ffd8a2);box-shadow:0 0 18px rgba(255,152,0,.35)}
-.label{margin:0 0 11px;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.88);font-weight:600;text-shadow:0 2px 10px rgba(0,0,0,.4)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.lang{min-height:50px;padding:9px 13px;border-radius:16px;border:1px solid rgba(255,255,255,.18);background:linear-gradient(180deg,rgba(9,17,15,.36),rgba(5,11,10,.27));backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 18px rgba(0,0,0,.10),inset 0 1px 0 rgba(255,255,255,.04);font-weight:600;font-size:.93rem;letter-spacing:.004em;text-shadow:0 1px 5px rgba(0,0,0,.35)}
-.lang--primary{border-color:rgba(255,178,87,.70);background:linear-gradient(180deg,rgba(94,49,8,.40),rgba(29,19,8,.30));box-shadow:0 10px 24px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.05)}.lang--full{grid-column:1/-1;width:calc(50% - 4.5px);justify-self:center}.flag{font-size:1.18rem;line-height:1}
-.bottom{display:flex;flex-direction:column;align-items:center;gap:14px;padding-bottom:4px}
-.villas{
-  position:relative;
-  width:min(100%,392px);
-  min-height:68px;
-  padding:10px 18px 10px 22px;
-  border-radius:999px;
-  border:1px solid rgba(255,221,166,.46);
-  background:
-    radial-gradient(circle at 50% 120%,rgba(255,190,102,.12),transparent 44%),
-    linear-gradient(180deg,rgba(11,22,18,.50),rgba(4,11,9,.32));
-  -webkit-backdrop-filter:blur(16px) saturate(118%);
-  backdrop-filter:blur(16px) saturate(118%);
-  display:grid;
-  grid-template-columns:1fr auto;
-  align-items:center;
-  gap:18px;
-  color:#fff;
-  overflow:visible;
-  box-shadow:
-    0 18px 42px rgba(0,0,0,.24),
-    0 0 26px rgba(255,185,95,.12),
-    0 0 70px rgba(255,185,95,.055),
-    inset 0 1px 0 rgba(255,255,255,.13),
-    inset 0 0 26px rgba(255,201,127,.035);
-  text-align:left;
-  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,background .22s ease
+:root{
+  --cream:#fff8ef;
+  --gold:#ffd69a;
+  --gold-soft:rgba(255,214,154,.72);
+  --glass:rgba(8,18,14,.38);
+  --glass-strong:rgba(8,18,14,.54);
+  --line:rgba(255,255,255,.20);
 }
-.villas::before{
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#091412}
+body{
+  color:#fff;
+  font-family:"Manrope",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  background:#091412
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+
+.hero{
+  min-height:100svh;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  background:#091412
+}
+@media(max-width:759px){
+  .hero{
+    background:
+      linear-gradient(180deg,rgba(4,8,7,.02) 0%,rgba(4,8,7,.05) 30%,rgba(4,8,7,.16) 64%,rgba(4,8,7,.46) 100%),
+      url("./assets/bali-mobile-bg-v2.avif") center 52%/cover no-repeat
+  }
+}
+.hero::before{
   content:"";
   position:absolute;
-  inset:-9px;
-  z-index:-1;
-  border-radius:inherit;
-  background:radial-gradient(circle at 50% 50%,rgba(255,197,114,.16),transparent 68%);
-  filter:blur(16px);
-  opacity:.72;
-  pointer-events:none
-}
-.villas:hover,.villas:focus-visible{
-  transform:translateY(-2px);
-  border-color:rgba(255,226,177,.72);
+  inset:0;
+  z-index:0;
+  pointer-events:none;
   background:
-    radial-gradient(circle at 50% 120%,rgba(255,195,108,.16),transparent 46%),
-    linear-gradient(180deg,rgba(13,25,21,.58),rgba(4,11,9,.36));
-  box-shadow:
-    0 22px 50px rgba(0,0,0,.29),
-    0 0 34px rgba(255,190,104,.18),
-    0 0 86px rgba(255,190,104,.08),
-    inset 0 1px 0 rgba(255,255,255,.17),
-    inset 0 0 28px rgba(255,208,139,.05);
-  outline:none
+    radial-gradient(circle at 74% 9%,rgba(255,216,154,.10),transparent 24%),
+    linear-gradient(180deg,rgba(4,10,8,.03),rgba(4,10,8,.08) 48%,rgba(4,10,8,.22))
 }
-.villa-copy{display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:0}
-.villa-title{
+.shell{
+  position:relative;
+  z-index:1;
+  width:min(100%,600px);
+  min-height:100svh;
+  margin:0 auto;
+  padding:max(18px,env(safe-area-inset-top)) 20px max(26px,env(safe-area-inset-bottom));
+  display:flex;
+  flex-direction:column;
+  align-items:center
+}
+.top{
+  padding-top:7px;
+  display:flex;
+  justify-content:center;
+  width:100%
+}
+.logo{
+  width:112px;
+  height:112px;
+  object-fit:cover;
+  border-radius:50%;
+  clip-path:circle(49% at 50% 50%);
+  display:block;
+  filter:drop-shadow(0 14px 28px rgba(0,0,0,.35));
+  transform:scale(1.01)
+}
+.main{
+  width:100%;
+  margin:auto 0;
+  transform:translateY(-18px);
+  display:flex;
+  flex-direction:column;
+  align-items:center
+}
+h1{
+  margin:0;
+  max-width:560px;
+  text-align:center;
   font-family:"Italiana",Georgia,"Times New Roman",serif;
-  font-size:1.42rem;
+  font-size:clamp(3.7rem,15.7vw,6.15rem);
+  line-height:.88;
+  letter-spacing:-.038em;
+  font-weight:400;
+  color:#fff;
+  text-shadow:0 5px 24px rgba(0,0,0,.52);
+  text-wrap:balance
+}
+h1 em{
+  display:block;
+  margin-top:.08em;
+  font-style:normal;
+  font-weight:400;
+  color:var(--cream);
+  font-size:.76em;
+  line-height:.98;
+  letter-spacing:-.022em
+}
+.hub-actions{
+  width:min(100%,420px);
+  margin-top:38px;
+  display:flex;
+  flex-direction:column;
+  gap:13px
+}
+.hub-button{
+  position:relative;
+  width:100%;
+  min-height:66px;
+  padding:0 19px 0 24px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:22px;
+  background:
+    linear-gradient(180deg,rgba(15,28,23,.48),rgba(5,13,10,.34));
+  -webkit-backdrop-filter:blur(16px) saturate(118%);
+  backdrop-filter:blur(16px) saturate(118%);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  color:#fff;
+  cursor:pointer;
+  box-shadow:
+    0 16px 38px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease
+}
+.hub-button:hover,.hub-button:focus-visible{
+  transform:translateY(-2px);
+  outline:none;
+  border-color:rgba(255,224,177,.48);
+  background:linear-gradient(180deg,rgba(18,33,27,.57),rgba(6,15,12,.40));
+  box-shadow:
+    0 21px 48px rgba(0,0,0,.28),
+    0 0 34px rgba(255,194,103,.08),
+    inset 0 1px 0 rgba(255,255,255,.11)
+}
+.hub-button--primary{
+  border-color:rgba(255,213,148,.56);
+  box-shadow:
+    0 17px 42px rgba(0,0,0,.24),
+    0 0 28px rgba(255,184,84,.09),
+    inset 0 1px 0 rgba(255,255,255,.10)
+}
+.hub-button__label{
+  font-family:"Italiana",Georgia,"Times New Roman",serif;
+  font-size:1.48rem;
   line-height:1;
-  letter-spacing:.008em;
-  color:#fff8eb;
-  text-shadow:0 2px 12px rgba(0,0,0,.42),0 0 18px rgba(255,218,157,.12);
-  white-space:nowrap
+  letter-spacing:.004em;
+  color:#fff8ee;
+  text-shadow:0 2px 12px rgba(0,0,0,.34)
 }
-.villa-sub{
-  font-size:.54rem;
-  line-height:1.25;
-  letter-spacing:.23em;
-  text-transform:uppercase;
-  color:rgba(255,216,154,.86);
-  font-weight:700
-}
-.villa-arrow{
-  display:grid;
-  place-items:center;
+.hub-button__arrow{
+  flex:0 0 auto;
   width:34px;
   height:34px;
-  color:#ffd69a;
-  font-size:1.28rem;
-  font-weight:300;
-  text-shadow:0 0 16px rgba(255,204,126,.4);
-  transition:transform .22s ease,color .22s ease
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:var(--gold);
+  font-size:1.15rem;
+  line-height:1;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,224,177,.16);
+  text-shadow:0 0 14px rgba(255,205,126,.35);
+  transition:transform .2s ease,background .2s ease
 }
-.villas:hover .villa-arrow,.villas:focus-visible .villa-arrow{transform:translateX(3px);color:#fff0d2}
-.whatsapp{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(86px,calc(env(safe-area-inset-bottom) + 18px));width:58px;height:58px;border:0;padding:0;border-radius:50%;background:#25D366;color:#fff;box-shadow:0 14px 34px rgba(0,0,0,.25);display:grid;place-items:center;z-index:10;transition:transform .18s ease,filter .18s ease}.whatsapp:hover,.whatsapp:focus-visible{transform:translateY(-2px) scale(1.03);filter:brightness(1.03);outline:none}.whatsapp svg{display:block;width:68%;height:68%;fill:currentColor}
-@media(max-height:760px) and (max-width:759px){.logo{width:96px;height:96px}.main{padding:12px 0 8px;transform:translateY(-26px)}h1{font-size:2.96rem}.promise{margin-top:11px;font-size:.80rem}.micro{margin-top:9px;font-size:.80rem;line-height:1.34}.rule{margin:11px auto 13px}.lang{min-height:44px;font-size:.85rem}.bottom{gap:10px}.villas{min-height:60px;padding:9px 14px 9px 18px}.villa-title{font-size:1.22rem}.villa-sub{font-size:.49rem}.villa-arrow{width:30px;height:30px;font-size:1.15rem}.whatsapp{bottom:max(78px,calc(env(safe-area-inset-bottom) + 16px))}}
-@media(min-width:760px){.hero{background:linear-gradient(180deg,rgba(4,8,7,.08) 0%,rgba(4,8,7,.12) 28%,rgba(4,8,7,.22) 58%,rgba(4,8,7,.45) 100%),url("https://images.pexels.com/photos/35783262/pexels-photo-35783262.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=2560&h=1600") center 52%/cover no-repeat,url("./assets/bali-mobile-bg-v2.avif") center 52%/cover no-repeat!important}.hero::before{display:block!important;background:radial-gradient(circle at 75% 12%,rgba(255,215,145,.10),transparent 26%)}.shell{width:min(100%,740px);padding-left:28px;padding-right:28px}.logo{width:124px;height:124px}.main{max-width:680px;align-self:center;transform:translateY(-20px)}h1 em{display:inline}.grid{grid-template-columns:repeat(5,1fr)}.lang--full{grid-column:auto;width:auto;justify-self:auto}.whatsapp{bottom:max(18px,env(safe-area-inset-bottom))}}
-@media(min-width:760px) and (orientation:portrait){.hero{background-position:center 50%!important}}
-@media(min-width:1200px){.hero{background-position:center 54%!important}}
+.hub-button:hover .hub-button__arrow,
+.hub-button:focus-visible .hub-button__arrow{
+  transform:translateX(2px);
+  background:rgba(255,255,255,.07)
+}
+.hub-button--tours:hover .hub-button__arrow,
+.hub-button--tours:focus-visible .hub-button__arrow{
+  transform:translateY(2px)
+}
+
+.whatsapp{
+  position:fixed;
+  right:max(18px,env(safe-area-inset-right));
+  bottom:max(20px,calc(env(safe-area-inset-bottom) + 18px));
+  width:58px;
+  height:58px;
+  border:0;
+  padding:0;
+  border-radius:50%;
+  background:#25D366;
+  color:#fff;
+  box-shadow:0 14px 34px rgba(0,0,0,.27);
+  display:grid;
+  place-items:center;
+  z-index:20;
+  transition:transform .18s ease,filter .18s ease
+}
+.whatsapp:hover,.whatsapp:focus-visible{
+  transform:translateY(-2px) scale(1.03);
+  filter:brightness(1.03);
+  outline:none
+}
+.whatsapp svg{display:block;width:68%;height:68%;fill:currentColor}
+
+/* Language chooser */
+.lang-modal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:22px
+}
+.lang-modal.is-open{display:flex}
+.lang-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(3,9,7,.62);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px)
+}
+.lang-panel{
+  position:relative;
+  width:min(100%,430px);
+  padding:31px 25px 24px;
+  border-radius:28px;
+  border:1px solid rgba(255,224,177,.25);
+  background:
+    radial-gradient(circle at 50% -30%,rgba(255,207,129,.09),transparent 48%),
+    linear-gradient(180deg,rgba(17,31,26,.92),rgba(6,15,12,.94));
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.46),
+    0 0 44px rgba(255,189,91,.07),
+    inset 0 1px 0 rgba(255,255,255,.08)
+}
+.lang-panel h2{
+  margin:0 44px 23px 0;
+  font-family:"Italiana",Georgia,"Times New Roman",serif;
+  font-size:2.25rem;
+  line-height:1;
+  font-weight:400;
+  color:#fff8ee
+}
+.lang-close{
+  position:absolute;
+  top:17px;
+  right:17px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.04);
+  color:#fff;
+  font-size:1.35rem;
+  font-weight:300;
+  cursor:pointer
+}
+.lang-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px
+}
+.lang{
+  min-height:54px;
+  padding:10px 12px;
+  border-radius:17px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.045);
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:11px;
+  font-size:.88rem;
+  font-weight:600;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease
+}
+.lang:hover,.lang:focus-visible{
+  transform:translateY(-1px);
+  outline:none;
+  border-color:rgba(255,216,157,.42);
+  background:rgba(255,255,255,.075)
+}
+.lang--primary{
+  border-color:rgba(255,194,105,.48);
+  background:rgba(108,63,15,.18)
+}
+.flag{font-size:1.2rem;line-height:1}
+
+@media(max-height:730px) and (max-width:759px){
+  .logo{width:92px;height:92px}
+  .main{transform:translateY(-8px)}
+  h1{font-size:3.35rem}
+  .hub-actions{margin-top:26px}
+  .hub-button{min-height:58px}
+  .hub-button__label{font-size:1.3rem}
+}
+
+@media(min-width:760px){
+  .hero{
+    background:
+      linear-gradient(180deg,rgba(4,8,7,.08) 0%,rgba(4,8,7,.12) 28%,rgba(4,8,7,.22) 58%,rgba(4,8,7,.45) 100%),
+      url("https://images.pexels.com/photos/35783262/pexels-photo-35783262.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=2560&h=1600") center 52%/cover no-repeat,
+      url("./assets/bali-mobile-bg-v2.avif") center 52%/cover no-repeat!important
+  }
+  .hero::before{
+    background:
+      radial-gradient(circle at 75% 12%,rgba(255,215,145,.10),transparent 26%),
+      linear-gradient(180deg,rgba(4,10,8,.03),rgba(4,10,8,.11) 55%,rgba(4,10,8,.26))
+  }
+  .shell{width:min(100%,780px);padding-left:28px;padding-right:28px}
+  .logo{width:124px;height:124px}
+  .main{transform:translateY(-14px)}
+  h1{font-size:clamp(4.7rem,8vw,7.6rem);max-width:720px}
+  h1 em{font-size:.72em}
+  .hub-actions{width:min(100%,460px);margin-top:44px}
+  .hub-button{min-height:70px}
+  .hub-button__label{font-size:1.58rem}
+}
+@media(min-width:760px) and (orientation:portrait){
+  .hero{background-position:center 50%!important}
+}
+@media(min-width:1200px){
+  .hero{background-position:center 54%!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
 </style>
 </head>
+
 <body>
 <main class="hero">
-<section class="shell" aria-label="Bali Discount">
-<header class="top"><img class="logo" src="./assets/bali-discount-logo.webp" alt="Bali Discount logo" width="224" height="224"></header>
-<section class="main"><p class="kicker">Bali · Private experiences</p><h1>Private tours <em>in Bali.</em></h1><p class="promise">At group-tour prices</p><p class="micro">With guides in your language.</p><div class="rule" aria-hidden="true"></div><p class="label">Choose your language</p><div class="grid">
-<a class="lang lang--primary" href="./en" data-lang="en"><span class="flag">🇬🇧</span><span>English</span></a>
-<a class="lang" href="./en" data-lang="fr"><span class="flag">🇫🇷</span><span>Français</span></a>
-<a class="lang" href="./en" data-lang="es"><span class="flag">🇪🇸</span><span>Español</span></a>
-<a class="lang" href="./en" data-lang="de"><span class="flag">🇩🇪</span><span>Deutsch</span></a>
-<a class="lang lang--full" href="./ru" data-lang="ru"><span class="flag">🇷🇺</span><span>Русский</span></a>
-</div></section>
-<footer class="bottom"><a class="villas" href="./villas/" aria-label="Find your perfect villa in Bali"><span class="villa-copy"><span class="villa-title">Find your perfect villa</span><span class="villa-sub">Villas in Bali</span></span><span class="villa-arrow" aria-hidden="true">→</span></a></footer>
-</section>
-<a class="whatsapp" href="https://wa.me/628999844455?text=Hello%21%20I%27m%20interested%20in%20private%20tours%20in%20Bali." aria-label="WhatsApp">
-<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 3C9.43 3 4.05 8.35 4.05 14.93c0 2.11.56 4.17 1.62 5.97L3.95 27l6.27-1.64a12 12 0 0 0 5.82 1.48h.01c6.61 0 11.99-5.35 11.99-11.93C28.04 8.35 22.66 3 16.04 3Zm0 21.83h-.01a9.98 9.98 0 0 1-5.09-1.39l-.37-.22-3.72.97.99-3.61-.24-.37a9.88 9.88 0 0 1-1.52-5.28c0-5.47 4.47-9.92 9.97-9.92 5.49 0 9.96 4.45 9.96 9.92 0 5.47-4.47 9.9-9.97 9.9Zm5.47-7.42c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.68-1.64-.93-2.24-.25-.59-.5-.51-.68-.52h-.58c-.2 0-.53.07-.8.37-.28.3-1.05 1.02-1.05 2.49s1.08 2.89 1.23 3.09c.15.2 2.12 3.22 5.14 4.52.72.31 1.28.49 1.72.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35Z"/></svg>
-</a>
-</main>
-<script>
-document.querySelectorAll('[data-lang]').forEach(a=>a.addEventListener('click',()=>{try{localStorage.setItem('baliDiscountLanguage',a.dataset.lang)}catch(e){}}));
+  <section class="shell" aria-label="Bali Discount">
+    <header class="top">
+      <img class="logo" src="./assets/bali-discount-logo.webp" alt="Bali Discount logo" width="224" height="224">
+    </header>
 
+    <section class="main">
+      <h1>Bali.<em>Your private experiences.</em></h1>
+
+      <div class="hub-actions">
+        <button class="hub-button hub-button--primary hub-button--tours" id="openLanguages" type="button" aria-haspopup="dialog" aria-controls="languageModal" aria-expanded="false">
+          <span class="hub-button__label">Private Tours</span>
+          <span class="hub-button__arrow" aria-hidden="true">↓</span>
+        </button>
+
+        <a class="hub-button" href="./villas/" aria-label="Find your perfect villa in Bali">
+          <span class="hub-button__label">Find Your Perfect Villa</span>
+          <span class="hub-button__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+  </section>
+
+  <a class="whatsapp" href="https://wa.me/628999844455?text=Hello%21%20I%27m%20interested%20in%20Bali%20Discount." aria-label="WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 3C9.43 3 4.05 8.35 4.05 14.93c0 2.11.56 4.17 1.62 5.97L3.95 27l6.27-1.64a12 12 0 0 0 5.82 1.48h.01c6.61 0 11.99-5.35 11.99-11.93C28.04 8.35 22.66 3 16.04 3Zm0 21.83h-.01a9.98 9.98 0 0 1-5.09-1.39l-.37-.22-3.72.97.99-3.61-.24-.37a9.88 9.88 0 0 1-1.52-5.28c0-5.47 4.47-9.92 9.97-9.92 5.49 0 9.96 4.45 9.96 9.92 0 5.47-4.47 9.9-9.97 9.9Zm5.47-7.42c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.18-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.68-1.64-.93-2.24-.25-.59-.5-.51-.68-.52h-.58c-.2 0-.53.07-.8.37-.28.3-1.05 1.02-1.05 2.49s1.08 2.89 1.23 3.09c.15.2 2.12 3.22 5.14 4.52.72.31 1.28.49 1.72.63.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35Z"/></svg>
+  </a>
+</main>
+
+<div class="lang-modal" id="languageModal" aria-hidden="true">
+  <div class="lang-backdrop" data-close-languages></div>
+  <section class="lang-panel" role="dialog" aria-modal="true" aria-labelledby="languageTitle">
+    <button class="lang-close" type="button" data-close-languages aria-label="Close language menu">×</button>
+    <h2 id="languageTitle">Choose your language</h2>
+
+    <div class="lang-grid">
+      <a class="lang lang--primary" href="./en" data-lang="en"><span class="flag">🇬🇧</span><span>English</span></a>
+      <a class="lang" href="./en" data-lang="fr"><span class="flag">🇫🇷</span><span>Français</span></a>
+      <a class="lang" href="./en" data-lang="es"><span class="flag">🇪🇸</span><span>Español</span></a>
+      <a class="lang" href="./en" data-lang="de"><span class="flag">🇩🇪</span><span>Deutsch</span></a>
+      <a class="lang" href="./ru" data-lang="ru"><span class="flag">🇷🇺</span><span>Русский</span></a>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const modal = document.getElementById('languageModal');
+  const opener = document.getElementById('openLanguages');
+  let lastFocused = null;
+
+  const openModal = () => {
+    lastFocused = document.activeElement;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden','false');
+    opener.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
+    window.setTimeout(() => modal.querySelector('.lang')?.focus(), 30);
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden','true');
+    opener.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+    lastFocused?.focus?.();
+  };
+
+  opener.addEventListener('click', openModal);
+  document.querySelectorAll('[data-close-languages]').forEach(el => el.addEventListener('click', closeModal));
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+
+  document.querySelectorAll('[data-lang]').forEach(a => a.addEventListener('click', () => {
+    try { localStorage.setItem('baliDiscountLanguage', a.dataset.lang); } catch(e) {}
+  }));
+})();
 </script>
-</body></html>
+</body>
+</html>
